@@ -1,0 +1,502 @@
+import { safeStorage } from "./safeStorage";
+
+export interface Project {
+  id: number | string;
+  title: string;
+  category: "Reels" | "Talking Head" | "Personal Brand" | "Motion Graphics" | string;
+  description: string;
+  image: string;
+  youtubeUrl: string;
+  duration?: string;
+  featured?: boolean;
+}
+
+export interface ClientReview {
+  id: number | string;
+  client: string;
+  role: string;
+  content: string;
+  thumbnail: string;
+  youtubeUrl: string;
+  rating?: number;
+}
+
+export interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  ventureNature: string;
+  message: string;
+  createdAt: string;
+  read: boolean;
+}
+
+export interface ProfileSettings {
+  name: string;
+  title: string;
+  tagline: string;
+  email: string;
+  whatsapp: string;
+  instagram: string;
+  facebook: string;
+  linkedin: string;
+  yearsExperience: string;
+  projectsCompleted: string;
+  happyClients: string;
+}
+
+// ভিডিও বদলাতে শুধু নিচের দুটি লাইন পরিবর্তন করুন
+// Reels (উল্লম্ব) ভিডিওর জন্য
+const REEL_VIDEO_URL = "https://www.youtube.com/embed/00Sel5fqBCs";
+// Landscape ভিডিওর জন্য
+const LANDSCAPE_VIDEO_URL = "https://www.youtube.com/embed/e2kIhlfmOJw";
+
+const DEFAULT_PROJECTS: Project[] = [
+  {
+    id: 1,
+    title: "",
+    category: "Talking Head",
+    description: "Doctor's advice",
+    image: "/images/googleads.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "0:37",
+    featured: true
+  },
+  {
+    id: 2,
+    title: "Viral Algorithm Hack",
+    category: "Reels",
+    description: "Joseph's viral algorithm hack for Instagram Reels.",
+    image: "/images/joseph.png",
+    youtubeUrl: REEL_VIDEO_URL,
+    duration: "0:45",
+    featured: true
+  },
+  {
+    id: 3,
+    title: "Use This 5 Font on your video",
+    category: "Personal Brand",
+    description: "Best five fonts",
+    image: "/images/font.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "0:21",
+    featured: true
+  },
+  // {
+  //   id: 3,
+  //   title: "Google lances reake",
+  //   category: "Saas Animation",
+  //   description: "Clean tech review for a major influencer.",
+  //   image: "https://i.postimg.cc/ydSwHbGG/2v-WH764AUE8-HD.jpg",
+  //   youtubeUrl: LANDSCAPE_VIDEO_URL,
+  //   duration: "1:30",
+  //   featured: true
+  // },
+  // {
+  //   id: 4,
+  //   title: "Bangladesh Growth video",
+  //   category: "Motion Graphics",
+  //   description: "Dynamic intro animation for a Reneta LTD.",
+  //   image: "https://i.postimg.cc/L6m0C5mD/dc-TUgs-XTc-QI-HD.jpg",
+  //   youtubeUrl: LANDSCAPE_VIDEO_URL,
+  //   duration: "1:15",
+  //   featured: true
+  // },
+  {
+    id: 5,
+    title: "Here's My Advice for Video Editing in 2026",
+    category: "Personal Brand",
+    description: "Personal Brand",
+    image: "/images/good video editor 2026.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "0:53",
+    featured: true
+  },
+  // {
+  //   id: 6,
+  //   title: "Cyberpunk Glitch Edit",
+  //   category: "Motion Graphics",
+  //   description: "Complex glitch effects and futuristic typography.",
+  //   image: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=800&auto=format&fit=crop",
+  //   youtubeUrl: LANDSCAPE_VIDEO_URL,
+  //   duration: "0:30",
+  //   featured: true
+  // },
+  {
+    id: 7,
+    title: "Most people think editing is just cutting clips",
+    category: "Personal Brand",
+    description: "Personal Brand",
+    image: "/images/cutting clip 2.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "0:49",
+    featured: true
+  },
+  {
+    id: 8,
+    title: "Diet",
+    category: "Reels",
+    description: "IG Reels",
+    image: "/images/ChatGPT Image Sep 27, 2026, 10_43_46 PM.png",
+    youtubeUrl: REEL_VIDEO_URL,
+    duration: "0:43",
+    featured: true
+  },
+  {
+    id: 9,
+    title: "Right way to investment on stock market ",
+    category: "Talking Head",
+    description: "",
+    image: "/images/stock market investment.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "8:07",
+    featured: true
+  },
+  {
+    id: 10,
+    title: "One way make money in stock market ",
+    category: "Talking Head",
+    description: "",
+    image: "/images/one way make money.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "10:00",
+    featured: true
+  },
+   {
+    id: 11,
+    title: "Start getting paid the biggest companies just $500",
+    category: "Talking Head",
+    description: "",
+    image: "/images/start getting paid.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "12:30",
+    featured: true
+  },
+   {
+    id: 12,
+    title: "Ai just made those people cheaper to replace",
+    category: "Talking Head",
+    description: "",
+    image: "/images/ai replace.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "5:23",
+    featured: true
+  },
+  {
+    id: 13,
+    title: "Who am I and my services",
+    category: "Personal Brand",
+    description: "Want to edit your videos? I can help you with that. I am a professional video editor and motion designer with 2+ years of experience.",
+    image: "/images/Intro Video.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "1:07",
+    featured: true
+  },
+   {
+    id: 14,
+    title: "Different Language Work | Instagram Reels",
+    category: "Reels",
+    description: "Instagram Reels",
+    image: "/images/arabic 2.png",
+    youtubeUrl: REEL_VIDEO_URL,
+    duration: "0:22",
+    featured: true
+  },
+  {
+    id: 15,
+    title: "Elon Mask he's business empire | Motion Graphics",
+    category: "Motion Graphics",
+    description: "Elon Mask Business Empire",
+    image: "/images/elon mask business.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "0:10",
+    featured: true
+  },
+  {
+    id: 16,
+    title: "3 ways to kick as a video editor",
+    category: "Reels",
+    description: "Before | After",
+    image: "/images/kick as a video editor.png",
+    youtubeUrl: REEL_VIDEO_URL,
+    duration: "0:16",
+    featured: true
+  },
+  {
+    id: 17,
+    title: "Real State Work Instagram Reels",
+    category: "Reels",
+    description: "Real State Work",
+    image: "/images/realstate.png",
+    youtubeUrl: REEL_VIDEO_URL,
+    duration: "0:24",
+    featured: true
+  },
+  {
+    id: 18,
+    title: "GIG Video",
+    category: "Personal Brand",
+    description: "GIG Video",
+    image: "/images/professional talking head videos for youtube and vsl.jpg",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "0:52",
+    featured: true
+  },
+  {
+    id: 19,
+    title: "Viral Content Instagram Reels",
+    category: "Motion Graphics",
+    description: "Viral Content",
+    image: "/images/viralcontent.png",
+    youtubeUrl: LANDSCAPE_VIDEO_URL,
+    duration: "0:24",
+    featured: true
+  },
+   
+  // {
+  //   id: 11,
+  //   title: "Documentary: The Artisan",
+  //   category: "Documentary",
+  //   description: "Story highlighting the craftsmanship of a luthier.",
+  //   image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop",
+  //   youtubeUrl: LANDSCAPE_VIDEO_URL,
+  //   duration: "5:20",
+  //   featured: false
+  // }
+];
+
+const DEFAULT_REVIEWS: ClientReview[] = [
+  {
+    id: 1,
+    client: "cozy",
+    role: "Head Chef",
+    content: "Review video of an Italian restaurant Head Chef.",
+    thumbnail: "https://i.postimg.cc/t4mYjS24/video-capture-t0006-51seg-3115.png",
+    youtubeUrl: REEL_VIDEO_URL,
+    rating: 5
+  },
+  {
+    id: 2,
+    client: "Marcus Chen",
+    role: "Content Creator",
+    content: "My retention rates skyrocketed after we started working on my Reels. Fast, reliable, and incredibly creative.",
+    thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+    youtubeUrl: REEL_VIDEO_URL,
+    rating: 5
+  },
+  {
+    id: 3,
+    client: "Elena Rodriguez",
+    role: "Marketing Director",
+    content: "A master of storytelling. Our Talking Head looked like a high-budget Hollywood production. Incredible work!",
+    thumbnail: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop",
+    youtubeUrl: REEL_VIDEO_URL,
+    rating: 5
+  },
+  {
+    id: 4,
+    client: "David Wilson",
+    role: "Founder, Peak Performance",
+    content: "The level of professionalism and artistic direction is unmatched. Our brand engagement has doubled since we updated our content.",
+    thumbnail: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop",
+    youtubeUrl: REEL_VIDEO_URL,
+    rating: 5
+  }
+];
+
+const DEFAULT_MESSAGES: ContactMessage[] = [
+  {
+    id: "msg_1",
+    name: "Alex Vance",
+    email: "alex@vancemedia.co",
+    ventureNature: "Talking Head Masterpiece",
+    message: "Hey Shakil! We are launching a new tech gadget and need a 60-second high energy Talking Head ad. Loved your podcast hook edits!",
+    createdAt: new Date(Date.now() - 3600000 * 24).toISOString(),
+    read: false
+  }
+];
+
+const DEFAULT_SETTINGS: ProfileSettings = {
+  name: "Shakil Shuvo",
+  title: "Video Editor & Motion Designer",
+  tagline: "Turn Raw Footage into High-Impact Visual Stories",
+  email: "shakilshuvonetwork@gmail.com",
+  whatsapp: "+8801886121919",
+  instagram: "https://www.instagram.com/shakilshuvo21/",
+  facebook: "https://www.facebook.com/ShakilShuvoID21",
+  linkedin: "https://www.linkedin.com/in/shakilshuvo21/",
+  yearsExperience: "2+",
+  projectsCompleted: "183+",
+  happyClients: "47+"
+};
+
+const STORAGE_KEYS = {
+  PROJECTS: "rh_portfolio_projects_v2",
+  REVIEWS: "rh_portfolio_reviews_v2",
+  MESSAGES: "rh_portfolio_messages_v2",
+  SETTINGS: "rh_portfolio_settings_v2",
+  ADMIN_PASS: "rh_portfolio_admin_pass_v1",
+};
+
+const notifyUpdate = () => {
+  try {
+    window.dispatchEvent(new Event("rh_data_updated"));
+  } catch {
+    // no-op if window/events unavailable
+  }
+};
+
+export const dataStore = {
+  // Projects
+  getProjects(): Project[] {
+    try {
+      const saved = safeStorage.getItem(STORAGE_KEYS.PROJECTS);
+      return saved ? JSON.parse(saved) : DEFAULT_PROJECTS;
+    } catch {
+      return DEFAULT_PROJECTS;
+    }
+  },
+  saveProject(project: Partial<Project> & { id?: number | string }): Project[] {
+    const projects = this.getProjects();
+    if (project.id) {
+      const idx = projects.findIndex(p => p.id === project.id);
+      if (idx !== -1) {
+        projects[idx] = { ...projects[idx], ...project };
+      } else {
+        projects.unshift(project as Project);
+      }
+    } else {
+      const newProj: Project = {
+        id: Date.now(),
+        title: project.title || "Untitled Project",
+        category: project.category || "Reels",
+        description: project.description || "",
+        image: project.image || "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=800&auto=format&fit=crop",
+        youtubeUrl: project.youtubeUrl || "",
+        duration: project.duration || "0:30",
+        featured: project.featured ?? true
+      };
+      projects.unshift(newProj);
+    }
+    safeStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(projects));
+    notifyUpdate();
+    return projects;
+  },
+  deleteProject(id: number | string): Project[] {
+    const projects = this.getProjects().filter(p => p.id !== id);
+    safeStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(projects));
+    notifyUpdate();
+    return projects;
+  },
+
+  // Reviews
+  getReviews(): ClientReview[] {
+    try {
+      const saved = safeStorage.getItem(STORAGE_KEYS.REVIEWS);
+      return saved ? JSON.parse(saved) : DEFAULT_REVIEWS;
+    } catch {
+      return DEFAULT_REVIEWS;
+    }
+  },
+  saveReview(review: Partial<ClientReview> & { id?: number | string }): ClientReview[] {
+    const reviews = this.getReviews();
+    if (review.id) {
+      const idx = reviews.findIndex(r => r.id === review.id);
+      if (idx !== -1) {
+        reviews[idx] = { ...reviews[idx], ...review };
+      } else {
+        reviews.unshift(review as ClientReview);
+      }
+    } else {
+      const newRev: ClientReview = {
+        id: Date.now(),
+        client: review.client || "Client",
+        role: review.role || "Client",
+        content: review.content || "",
+        thumbnail: review.thumbnail || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop",
+        youtubeUrl: review.youtubeUrl || "",
+        rating: review.rating || 5
+      };
+      reviews.unshift(newRev);
+    }
+    safeStorage.setItem(STORAGE_KEYS.REVIEWS, JSON.stringify(reviews));
+    notifyUpdate();
+    return reviews;
+  },
+  deleteReview(id: number | string): ClientReview[] {
+    const reviews = this.getReviews().filter(r => r.id !== id);
+    safeStorage.setItem(STORAGE_KEYS.REVIEWS, JSON.stringify(reviews));
+    notifyUpdate();
+    return reviews;
+  },
+
+  // Messages
+  getMessages(): ContactMessage[] {
+    try {
+      const saved = safeStorage.getItem(STORAGE_KEYS.MESSAGES);
+      return saved ? JSON.parse(saved) : DEFAULT_MESSAGES;
+    } catch {
+      return DEFAULT_MESSAGES;
+    }
+  },
+  addMessage(msg: { name: string; email: string; ventureNature: string; message: string }): ContactMessage {
+    const messages = this.getMessages();
+    const newMsg: ContactMessage = {
+      id: `msg_${Date.now()}`,
+      ...msg,
+      createdAt: new Date().toISOString(),
+      read: false
+    };
+    messages.unshift(newMsg);
+    safeStorage.setItem(STORAGE_KEYS.MESSAGES, JSON.stringify(messages));
+    notifyUpdate();
+    return newMsg;
+  },
+  markMessageRead(id: string): ContactMessage[] {
+    const messages = this.getMessages().map(m => m.id === id ? { ...m, read: true } : m);
+    safeStorage.setItem(STORAGE_KEYS.MESSAGES, JSON.stringify(messages));
+    notifyUpdate();
+    return messages;
+  },
+  deleteMessage(id: string): ContactMessage[] {
+    const messages = this.getMessages().filter(m => m.id !== id);
+    safeStorage.setItem(STORAGE_KEYS.MESSAGES, JSON.stringify(messages));
+    notifyUpdate();
+    return messages;
+  },
+
+  // Settings
+  getSettings(): ProfileSettings {
+    try {
+      const saved = safeStorage.getItem(STORAGE_KEYS.SETTINGS);
+      return saved ? { ...DEFAULT_SETTINGS, ...JSON.parse(saved) } : DEFAULT_SETTINGS;
+    } catch {
+      return DEFAULT_SETTINGS;
+    }
+  },
+  saveSettings(settings: Partial<ProfileSettings>): ProfileSettings {
+    const current = this.getSettings();
+    const updated = { ...current, ...settings };
+    safeStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(updated));
+    notifyUpdate();
+    return updated;
+  },
+
+  // Password
+  getAdminPassword(): string {
+    return safeStorage.getItem(STORAGE_KEYS.ADMIN_PASS) || "shehabmia00";
+  },
+  setAdminPassword(pass: string): void {
+    safeStorage.setItem(STORAGE_KEYS.ADMIN_PASS, pass);
+  },
+
+  // Reset
+  resetAllToDefault(): void {
+    safeStorage.removeItem(STORAGE_KEYS.PROJECTS);
+    safeStorage.removeItem(STORAGE_KEYS.REVIEWS);
+    safeStorage.removeItem(STORAGE_KEYS.MESSAGES);
+    safeStorage.removeItem(STORAGE_KEYS.SETTINGS);
+    safeStorage.removeItem(STORAGE_KEYS.ADMIN_PASS);
+    notifyUpdate();
+  }
+};

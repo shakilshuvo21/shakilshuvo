@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Sora:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Dark + Lime theme */
+  --color-primary: #0B0C03;
+  --color-secondary: #14160A;
+  --color-panel: #1E2110;
+  --color-accent: #E3FF04;
+  --color-accent-hover: #C4DC00;
+  --color-accent-glow: rgba(227, 255, 4, 0.3);
+
+  --color-text-pure: #F5F7E8;
+  --color-text-soft: #C4C9A8;
+  --color-text-muted: #858B6A;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #0B0C03;
+  }
+  body {
+    @apply bg-primary text-text-pure font-sans antialiased selection:bg-accent selection:text-primary overflow-x-hidden;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(30, 33, 16, 0.4);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(227, 255, 4, 0.15);
+  }
+  .glass-dark {
+    background: rgba(11, 12, 3, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(227, 255, 4, 0.08);
+  }
+  .glow-sm {
+    box-shadow: 0 0 15px rgba(227, 255, 4, 0.15);
+  }
+  .glow-md {
+    box-shadow: 0 0 30px rgba(227, 255, 4, 0.25);
+  }
+  .glow-lg {
+    box-shadow: 0 0 50px rgba(227, 255, 4, 0.35);
+  }
+  .text-glow {
+    text-shadow: 0 0 10px rgba(227, 255, 4, 0.25);
+  }
+  .border-glow {
+    border-color: rgba(227, 255, 4, 0.25);
+    box-shadow: inset 0 0 10px rgba(227, 255, 4, 0.08);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0C03;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E2110;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E3FF04;
+}
+
+/* Custom lime cursor (matches site theme) */
+@layer base {
+  html, body {
+    cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><defs><filter id='g' x='-50%25' y='-50%25' width='200%25' height='200%25'><feDropShadow dx='0' dy='0' stdDeviation='1.6' flood-color='%23E3FF04' flood-opacity='0.8'/></filter></defs><path filter='url(%23g)' d='M5 3 L5 22 L10 17.5 L13.5 25 L17 23.5 L13.7 16.3 L20.5 16 Z' fill='%23E3FF04' stroke='%23F5F7E8' stroke-width='1.6' stroke-linejoin='round'/></svg>") 5 3, auto;
+  }
+  a, button, [role="button"], summary, label[for], select,
+  input[type="submit"], input[type="button"], .cursor-pointer {
+    cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><defs><filter id='g' x='-50%25' y='-50%25' width='200%25' height='200%25'><feDropShadow dx='0' dy='0' stdDeviation='2' flood-color='%23E3FF04' flood-opacity='0.9'/></filter></defs><circle filter='url(%23g)' cx='18' cy='18' r='11' fill='%23E3FF04' fill-opacity='0.25' stroke='%23E3FF04' stroke-width='2.2'/><circle cx='18' cy='18' r='3.6' fill='%23F5F7E8'/></svg>") 18 18, pointer;
+  }
+  input:not([type="submit"]):not([type="button"]), textarea {
+    caret-color: #E3FF04;
+  }
+}
